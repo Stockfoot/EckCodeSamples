@@ -1,0 +1,1162 @@
+/* petpair */
+
+body, html {
+  height: 100%;
+}
+
+/****************************************************************************
+                              GLOBAL VARIABLES
+****************************************************************************/
+:root {
+  --maroon: #9B3D54;
+  --dark-blue: #3D84A8;
+  --light-blue: #46CDCF;
+  --highlight: #ABEDD8;
+  --dark-grey: #1E1E1E;
+  --mid-grey: #C4C4C4;
+  --light-grey: #E5E5E5;
+
+  --title-font: 'Montserrat', sans-serif;
+  --body-font: 'Sanchez', serif;
+}
+
+/****************************************************************************
+                              LANDING PAGE
+****************************************************************************/
+
+.bg-img {
+  background-image: url("../img/LandingBackground.jpg");
+
+  /*center vertical and horizontal*/
+  background-position: center center;
+
+  background-repeat: no-repeat;
+
+  /*fixes the background image to the viewport*/
+  background-attachment: fixed;
+
+  /*background image scales based on container size*/
+  background-size: cover;
+
+  /*color to render for when background is loading*/
+  background-color: #C4C4C4;
+}
+
+/*main page logo*/
+#nav-logo {
+  width: 19.7vw;
+  height: 5vw;
+}
+
+#nav-pad {
+  margin-left: -1.4vw;
+  margin-right: -1.4vw;
+}
+
+#log-in-button {
+  text-align: center;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  color: #E5E5E5;
+  font-weight: 100;
+  background: #9B3D54;
+  border-radius: 5px;
+  padding: 0.2vw;
+  padding-left: 2.3vw;
+  padding-right: 2.3vw;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/*landing page main heading section*/
+#land-main-text {
+  font-family: 'Sanchez', serif;
+  color: #E5E5E5;
+  font-weight: 100;
+}
+
+#landing-title {
+  font-size: 7vw;
+  text-align: center;
+  text-shadow: 2px 2px 4px #1E1E1E;
+  margin-top: -3vh;
+}
+
+#signup-btn {
+  text-align: center;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  color: #E5E5E5;
+  background: #3D84A8;
+  border-radius: 50px;
+  padding: 1vw;
+  padding-left: 7vw;
+  padding-right: 7vw;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 30px 0 rgba(0, 0, 0, 0.19);
+}
+
+#signup-btn-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/****************************************************************************
+                              REGISTER CHOICE PAGE
+****************************************************************************/
+#sub-title {
+  font-family: 'Montserrat', sans-serif;
+  color: #E5E5E5;
+  font-weight: 200;
+  text-align: center;
+  text-shadow: 2px 2px 4px #1E1E1E;
+}
+
+/*styling the 'buttons'/blocks*/
+.block-btn {
+  background: rgba(61, 132, 168, 0.61);
+  border-radius: 40px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: table-cell;
+}
+
+.block-btn h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: #E5E5E5;
+  font-weight: 100;
+  text-align: center;
+  text-shadow: 0.25px 0.25px 0.5px #1E1E1E;
+  margin: 0.5%;
+  display: table-cell;
+}
+
+.text-pad {
+  margin: 0.5%;
+  display: table-cell;
+}
+
+/****************************************************************************
+                              SHELTER INTERFACE PAGE
+****************************************************************************/
+
+.left-nav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 35%; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  background-color: #E5E5E5;
+}
+
+.sidebar-shelter-name {
+  height: 15%;
+  background-color: #9B3D54;
+  font-family: 'Montserrat', sans-serif;
+  color: #E5E5E5;
+  font-weight: 300;
+  text-align: center;
+  position: absolute;
+  top: 7.5%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-transform: uppercase;
+}
+
+.shelter-name {
+  margin-top: 2.3vw;
+  margin-left: 2.8vw;
+  font-size: 2.2vw;
+}
+
+/*****************************hamburger menu************************************/
+.shelter-hamburger {
+  position: absolute;
+  z-index: 100; /* Stay on top */
+  margin-top: 3vw;
+}
+
+.shelter-hamburger li {
+  font-family: var(--title-font);
+  font-weight: 300;
+  font-size: 1.3em;
+}
+/*end hamburger menu*/
+
+.sidebar-shelter-details {
+  height: 10%;
+  background-color: #3D84A8;
+  font-family: 'Montserrat', sans-serif;
+  color: #E5E5E5;
+  font-weight: 300;
+  text-align: center;
+  position: absolute;
+  top: 19.9%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 2vw;
+}
+
+.sidebar-shelter-info-container {
+  height: 75%;
+  background-color: #E5E5E5;
+  position: absolute;
+  top: 62.3%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: 'Sanchez', serif;
+  color: #1E1E1E;
+  font-weight: 100;
+  text-align: center;
+  font-size: 2vw;
+}
+
+.sidebar-shelter-button {
+  height: 15%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  color: #E5E5E5;
+  position: absolute;
+  top: 92.5%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+#new-animal-btn {
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  font-family: 'Montserrat', sans-serif;
+  color: #E5E5E5;
+  font-weight: 200;
+  background: #3D84A8;
+  border-radius: 50px;
+  width: 70%;
+  height: 40%;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 30px 0 rgba(0, 0, 0, 0.19);
+}
+
+.right-nav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 65%; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  right: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  background: #C4C4C4;
+
+}
+
+.animal-header {
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  color: #1E1E1E;
+  font-weight: 200;
+  text-decoration: underline;
+  text-decoration-color: #1E1E1E;
+  text-decoration-style: double;
+  position: absolute;
+  top: 6%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 2.2vw;
+}
+
+.animal-header h1 {
+  font-size: 2.5vw;
+}
+
+.list-of-animals-container {
+  overflow: auto;
+  height: 80%;
+  width: 90%;
+  position: absolute;
+  top: 53%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #E5E5E5;
+  border-radius: 20px;
+}
+
+.list-of-animals {
+  list-style: none
+}
+
+.individual-animal {
+  font-family: 'Sanchez', serif;
+  color: #1E1E1E;
+  font-weight: 100;
+  font-size: 2.2vw;
+  margin-top: 1vw;
+  padding-top: 1vw;
+  border: solid #C4C4C4 2px;
+  border-radius: 20px;
+}
+
+.animal-image {
+  size: 20%;
+  border-radius: 50%;
+  width: 15%;
+}
+
+#edit-animal-btn {
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  font-family: 'Montserrat', sans-serif;
+  color: #E5E5E5;
+  font-weight: 200;
+  background: #3D84A8;
+  border-radius: 50px;
+  width: 25%;
+  height: 40%;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 30px 0 rgba(0, 0, 0, 0.19);
+  font-size: 1.5vw;
+}
+
+#delete-animal-btn {
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  font-family: 'Montserrat', sans-serif;
+  color: #E5E5E5;
+  font-weight: 200;
+  background: #9B3D54;
+  border-radius: 50px;
+  width: 25%;
+  height: 40%;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 30px 0 rgba(0, 0, 0, 0.19);
+  font-size: 1.5vw;
+}
+
+.animal-status-btn {
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  margin: 5px;
+  font-family: 'Montserrat', sans-serif;
+  color: #1E1E1E;
+  font-weight: 400;
+  background: #ABEDD8;
+  border-radius: 5px;
+  width: 25%;
+  height: 40%;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 30px 0 rgba(0, 0, 0, 0.19);
+  font-size: 1.5vw;
+}
+
+/****************************************************************************
+                              USER INTERFACE PAGE
+****************************************************************************/
+
+.left-nav-user {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 35%; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  background-color: #E5E5E5;
+}
+
+.sidebar-user-search {
+  height: 15%;
+  background-color: #9B3D54;
+  font-family: 'Montserrat', sans-serif;
+  color: #E5E5E5;
+  font-weight: 300;
+  position: absolute;
+  z-index: 100; /* Stay on top */
+  top: 7.5%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+/****************************hamburger menu***********************************/
+/*div that wraps the entire hamburger menu*/
+.hamburger-wrapper {
+  position: absolute;
+  margin-top: 2.4vw;
+}
+
+.hamburger-wrapper a {
+  color: var(--light-grey) !important;
+}
+
+.hamburger-wrapper a:hover {
+  color: var(--highlight) !important;
+}
+
+/* Icon 1 */
+
+.animated-icon1, .animated-icon2, .animated-icon3 {
+  width: 30px;
+  height: 20px;
+  position: relative;
+  margin: 0px;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+  cursor: pointer;
+}
+
+/*adding styling to the nav items so that they can actually be seen when the
+hamburger is expanded*/
+.nav-item {
+  background-color: var(--maroon);
+  background: rgba(155, 61, 84, 0.9);
+  padding-left: 2vw;
+  width: 15vw;
+}
+
+.animated-icon1 span, .animated-icon2 span, .animated-icon3 span {
+display: block;
+position: absolute;
+height: 3px;
+width: 100%;
+border-radius: 9px;
+opacity: 1;
+left: 0;
+-webkit-transform: rotate(0deg);
+-moz-transform: rotate(0deg);
+-o-transform: rotate(0deg);
+transform: rotate(0deg);
+-webkit-transition: .25s ease-in-out;
+-moz-transition: .25s ease-in-out;
+-o-transition: .25s ease-in-out;
+transition: .25s ease-in-out;
+}
+
+.animated-icon1 span {
+background: var(--light-grey);
+}
+
+.animated-icon2 span {
+background: var(--light-grey);
+}
+
+.animated-icon3 span {
+background: var(--light-grey);
+}
+
+.animated-icon1 span:nth-child(1) {
+top: 0px;
+}
+
+.animated-icon1 span:nth-child(2) {
+top: 10px;
+}
+
+.animated-icon1 span:nth-child(3) {
+top: 20px;
+}
+
+.animated-icon1.open span:nth-child(1) {
+top: 11px;
+-webkit-transform: rotate(135deg);
+-moz-transform: rotate(135deg);
+-o-transform: rotate(135deg);
+transform: rotate(135deg);
+}
+
+.animated-icon1.open span:nth-child(2) {
+opacity: 0;
+left: -60px;
+}
+
+.animated-icon1.open span:nth-child(3) {
+top: 11px;
+-webkit-transform: rotate(-135deg);
+-moz-transform: rotate(-135deg);
+-o-transform: rotate(-135deg);
+transform: rotate(-135deg);
+}
+
+/* Icon 3*/
+.animated-icon2 span:nth-child(1) {
+top: 0px;
+}
+
+.animated-icon2 span:nth-child(2), .animated-icon2 span:nth-child(3) {
+top: 10px;
+}
+
+.animated-icon2 span:nth-child(4) {
+top: 20px;
+}
+
+.animated-icon2.open span:nth-child(1) {
+top: 11px;
+width: 0%;
+left: 50%;
+}
+
+.animated-icon2.open span:nth-child(2) {
+-webkit-transform: rotate(45deg);
+-moz-transform: rotate(45deg);
+-o-transform: rotate(45deg);
+transform: rotate(45deg);
+}
+
+.animated-icon2.open span:nth-child(3) {
+-webkit-transform: rotate(-45deg);
+-moz-transform: rotate(-45deg);
+-o-transform: rotate(-45deg);
+transform: rotate(-45deg);
+}
+
+.animated-icon2.open span:nth-child(4) {
+top: 11px;
+width: 0%;
+left: 50%;
+}
+
+/* Icon 4 */
+
+.animated-icon3 span:nth-child(1) {
+top: 0px;
+-webkit-transform-origin: left center;
+-moz-transform-origin: left center;
+-o-transform-origin: left center;
+transform-origin: left center;
+}
+
+.animated-icon3 span:nth-child(2) {
+top: 10px;
+-webkit-transform-origin: left center;
+-moz-transform-origin: left center;
+-o-transform-origin: left center;
+transform-origin: left center;
+}
+
+.animated-icon3 span:nth-child(3) {
+top: 20px;
+-webkit-transform-origin: left center;
+-moz-transform-origin: left center;
+-o-transform-origin: left center;
+transform-origin: left center;
+}
+
+.animated-icon3.open span:nth-child(1) {
+-webkit-transform: rotate(45deg);
+-moz-transform: rotate(45deg);
+-o-transform: rotate(45deg);
+transform: rotate(45deg);
+top: 0px;
+left: 8px;
+}
+
+.animated-icon3.open span:nth-child(2) {
+width: 0%;
+opacity: 0;
+}
+
+.animated-icon3.open span:nth-child(3) {
+-webkit-transform: rotate(-45deg);
+-moz-transform: rotate(-45deg);
+-o-transform: rotate(-45deg);
+transform: rotate(-45deg);
+top: 21px;
+left: 8px;
+}
+/****************************end hamburger menu***************************/
+
+/*styling the search bar*/
+.user-search {
+  width: 24vw;
+  margin-right: 1.2vw;
+  padding-right: 1vw;
+  margin-top: 3.1vw;
+  margin-left: 1vw;
+  padding-left: 1vw;
+  float: right;
+}
+
+.input-group.md-form.form-sm.form-2 input {
+  border: 1px solid var(--mid-grey);
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+/*add radius to the right side*/
+.input-group-text {
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.search-body {
+  text-align: center;
+  font-family: var(--title-font);
+}
+/*end of search styling*/
+
+.sidebar-matches-favs {
+  height: 10%;
+  background-color: #3D84A8;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  text-align: center;
+  position: absolute;
+  top: 19.9%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 2vw;
+}
+
+/*stle MATCHES and FAVORITES links*/
+.nav-tab {
+  padding-right: 5rem;
+}
+
+.nav-links {
+  padding: 0.5rem;
+}
+
+.nav-links a {
+  color: var(--light-grey) !important;
+  text-decoration: none;
+}
+
+.nav-links a:visited {
+  color: var(--light-grey) !important;
+  text-decoration: none;
+}
+
+.active-link {
+  text-decoration: none;
+  border-bottom: var(--highlight) 0.25em solid;
+}
+
+.user-select-nav {
+  text-decoration: none;
+  border-bottom: var(--highlight) 0.25em solid;
+}
+
+.sidebar-user-animal-list-container {
+  height: 75%;
+  background-color: #E5E5E5;
+  position: absolute;
+  top: 62.3%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: 'Sanchez', serif;
+  color: #1E1E1E;
+  font-weight: 100;
+  text-align: center;
+  font-size: 2vw;
+}
+
+.user-list-of-animals-container {
+  overflow: auto;
+  height: 97%;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 46%;
+  transform: translate(-50%,-50%);
+  background-color: #E5E5E5;
+  border-radius: 20px;
+}
+
+.user-list-of-animals {
+  list-style: none
+}
+
+.user-individual-animal {
+  font-family: 'Sanchez', serif;
+  color: #1E1E1E;
+  font-weight: 100;
+  font-size: 1.5vw;
+  margin-top: 2vw;
+  padding-top: 1vw;
+  border: solid #C4C4C4 2px;
+  border-radius: 20px;
+}
+
+.user-animal-image {
+  size: 40%;
+  border-radius: 50%;
+  width: 20%;
+}
+
+.user-animal-status-btn {
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  margin: 5px;
+  font-family: 'Montserrat', sans-serif;
+  color: #1E1E1E;
+  font-weight: 400;
+  background: #ABEDD8;
+  border-radius: 5px;
+  width: 50%;
+  height: 30%;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 30px 0 rgba(0, 0, 0, 0.19);
+  font-size: 1.5vw;
+}
+
+.right-nav-user {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 65%; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  right: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  background: #C4C4C4;
+}
+
+.user-animal-information-container{
+  height: 95%;
+  width: 95%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.animal-header-name {
+  height: 10%;
+  width: 95%;
+  position: absolute;
+  top: 6%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  padding-top: 0.8vw;
+}
+
+.animal-header-name h1{
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.5vw;
+  color: #1E1E1E;
+}
+
+.animal-information-image {
+  height: 40%;
+  width: 40%;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.animal-information-image img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 5px;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 30px 0 rgba(0, 0, 0, 0.19);
+}
+
+.animal-location-status {
+  height: 12%;
+  width: 35%;
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 1.3vw;
+  color: #1E1E1E;
+}
+
+.animal-location-status h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  color: #1E1E1E;
+  font-size: 1.3vw;
+}
+
+.user-animal-status-info-btn {
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  font-family: 'Montserrat', sans-serif;
+  color: #1E1E1E;
+  font-weight: 400;
+  background: #ABEDD8;
+  border-radius: 5px;
+  width: 50%;
+  height: 30%;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 30px 0 rgba(0, 0, 0, 0.19);
+  font-size: 1.0vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.animal-description-container {
+  overflow: auto;
+  height: 22%;
+  width: 85%;
+  position: absolute;
+  top: 73%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #E5E5E5;
+  border-radius: 10px;
+}
+
+.animal-description-container p {
+  font-family: 'Sanchez', serif;
+  color: #1E1E1E;
+  font-weight: 100;
+  font-size: 1.2vw;
+  padding-top: 1vw;
+  padding-left: 1vw;
+}
+
+.matching-disposition-list {
+  font-family: 'Sanchez', serif;
+  color: #1E1E1E;
+  font-weight: 100;
+  font-size: 1.2vw;
+  list-style: none;
+  columns: 2;
+}
+
+.matching-disposition-list li::before {
+  content: "•";
+  color: #9B3D54;
+  display: inline-block;
+  font-size: 1.2vw;
+  width: 1em;
+  margin-left: 1.5em;
+}
+
+.like-dislike-container {
+  height: 10%;
+  width: 35%;
+  position: absolute;
+  top: 93%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.like-container {
+  height: 100%;
+  width: 25%;
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%,-50%);
+}
+
+.like-container img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 30px 0 rgba(0, 0, 0, 0.19);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #E5E5E5;
+  padding: 0.3vw;
+  padding-bottom: 10%
+}
+
+.dislike-container {
+  height: 100%;
+  width: 25%;
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-50%,-50%);
+}
+
+.dislike-container img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 30px 0 rgba(0, 0, 0, 0.19);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #E5E5E5;
+  padding: 0.3vw;
+  padding-top: 10%
+}
+
+/****************************************************************************
+                              STYLE FORMS
+****************************************************************************/
+
+.form-group {
+  font-family: var(--body-font);
+}
+
+/* PIPE DREAMS - use to style placeholders later
+::placeholder {
+  color: rgba(30, 30, 30, 0.9);
+}*/
+
+/*form styling*/
+.style-form {
+  width: 75%;
+  border-radius: 15px;
+  margin: 0 auto;
+  background: rgba(229, 229, 229, 0.5);
+  padding: 2.5vw;
+}
+
+/*legends for all forms except title legend*/
+legend {
+  font-family: var(--title-font);
+  font-weight: 200;
+}
+
+.style-form-title {
+  text-align: center;
+}
+
+/*main title legend on all form pages*/
+.style-form-title legend {
+  font-weight: 300;
+  font-size: 2.5vw;
+}
+
+/*register form buttons*/
+.reg-btn {
+  font-family: var(--title-font);
+  color: var(--light-grey);
+  background-color: var(--dark-blue);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/*'already have an account?'*/
+.register-footer {
+  font-family: var(--body-font);
+  color: var(--medium-grey);
+}
+
+/*******************************user-register********************************/
+.user-reg-body {
+  background-image: url("../img/userRegBackground.jpg");
+
+  /*center vertical and horizontal*/
+  background-position: center center;
+
+  background-repeat: no-repeat;
+
+  /*fixes the background image to the viewport*/
+  background-attachment: fixed;
+
+  /*background image scales based on container size*/
+  background-size: cover;
+
+  /*color to render for when background is loading*/
+  background-color: #C4C4C4;
+}
+
+/*******************************user-preferences********************************/
+.user-preferences-body {
+  background-image: url("../img/updatePreferencesBackground.jpg");
+
+  /*center vertical and horizontal*/
+  background-position: center center;
+
+  background-repeat: no-repeat;
+
+  /*fixes the background image to the viewport*/
+  background-attachment: fixed;
+
+  /*background image scales based on container size*/
+  background-size: cover;
+
+  /*color to render for when background is loading*/
+  background-color: #C4C4C4;
+}
+
+/*******************************user-account********************************/
+.user-account-body {
+  background-image: url("../img/userAccountBackground.jpg");
+
+  /*center vertical and horizontal*/
+  background-position: center center;
+
+  background-repeat: no-repeat;
+
+  /*fixes the background image to the viewport*/
+  background-attachment: fixed;
+
+  /*background image scales based on container size*/
+  background-size: cover;
+
+  /*color to render for when background is loading*/
+  background-color: #C4C4C4;
+}
+
+/*******************************shelter-register********************************/
+.shelter-reg-body {
+  background-image: url("../img/shelterRegBackground.jpg");
+
+  /*center vertical and horizontal*/
+  background-position: center center;
+
+  background-repeat: no-repeat;
+
+  /*fixes the background image to the viewport*/
+  background-attachment: fixed;
+
+  /*background image scales based on container size*/
+  background-size: cover;
+
+  /*color to render for when background is loading*/
+  background-color: #C4C4C4;
+}
+
+/*******************************shelter-account********************************/
+.shelter-account-body {
+  background-image: url("../img/shelterAccountBackground.jpg");
+
+  /*center vertical and horizontal*/
+  background-position: center center;
+
+  background-repeat: no-repeat;
+
+  /*fixes the background image to the viewport*/
+  background-attachment: fixed;
+
+  /*background image scales based on container size*/
+  background-size: cover;
+
+  /*color to render for when background is loading*/
+  background-color: #C4C4C4;
+}
+
+/*******************************login********************************/
+.login-body {
+  background-image: url("../img/loginBackground.jpg");
+
+  /*center vertical and horizontal*/
+  background-position: center center;
+
+  background-repeat: no-repeat;
+
+  /*fixes the background image to the viewport*/
+  background-attachment: fixed;
+
+  /*background image scales based on container size*/
+  background-size: cover;
+
+  /*color to render for when background is loading*/
+  background-color: #C4C4C4;
+}
+
+.login-header {
+  text-align: center;
+}
+
+.login-header h2 {
+  font-family: var(--title-font);
+  color: var(--dark-grey);
+  font-weight: 300;
+  font-size: 2.5vw;
+}
+
+.login-form {
+  font-family: var(--body-font);
+}
+
+.log-in-button {
+  text-align: center;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  color: #E5E5E5;
+  font-weight: 100;
+  background: #9B3D54;
+  /*background: linear-gradient(to right, #3D84A8, #9B3D54);*/
+  border-radius: 5px;
+  padding: 0.2vw;
+  padding-left: 2.3vw;
+  padding-right: 2.3vw;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/*******************************add-animal********************************/
+.add-animal-body {
+  background-image: url("../img/addAnimalBackground.jpg");
+
+  /*center vertical and horizontal*/
+  background-position: center center;
+
+  background-repeat: no-repeat;
+
+  /*fixes the background image to the viewport*/
+  background-attachment: fixed;
+
+  /*background image scales based on container size*/
+  background-size: cover;
+
+  /*color to render for when background is loading*/
+  background-color: #C4C4C4;
+}
+
+.home-btn {
+  padding-left: 9%;
+  margin-bottom: 1%;
+  width: 83%;
+}
+
+/*******************************edit-animal********************************/
+.edit-animal-body {
+  background-image: url("../img/editAnimalBackground.jpg");
+
+  /*center vertical and horizontal*/
+  background-position: center center;
+
+  background-repeat: no-repeat;
+
+  /*fixes the background image to the viewport*/
+  background-attachment: fixed;
+
+  /*background image scales based on container size*/
+  background-size: cover;
+
+  /*color to render for when background is loading*/
+  background-color: #C4C4C4;
+}
+
+/****************************************************************************
+                              GENERAL
+****************************************************************************/
+/* unvisited link */
+a:link {
+  color: #ABEDD8;
+}
+
+/* visited link */
+a:visited {
+  color: #C4C4C4;
+}
+
+/* mouse over link */
+a:hover {
+  color: #C4C4C4;
+}
+
+/* selected link */
+a:active {
+  color: #C4C4C4;
+}

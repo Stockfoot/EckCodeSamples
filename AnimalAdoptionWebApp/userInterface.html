@@ -1,0 +1,250 @@
+{% extends "layout.html" %}
+{% block content %}
+<body>
+
+	<!-- Wrapper/Container for the whole page -->
+	<div class="interface-wrapper">
+
+		<!-- Wrapper for the side bar UI -->
+		<nav class="left-nav-user">
+
+			<!-- First row containing menu and search bar -->
+			<div class ="navbar-brand container-fluid sidebar-user-search">
+
+				<div class="hamburger-wrapper">
+					<nav class="navbar mb-4">
+
+		  			<!-- Collapse button -->
+		  			<button class="navbar-toggler second-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent23"
+		    		aria-controls="navbarSupportedContent23" aria-expanded="false" aria-label="Toggle navigation">
+		    			<div class="animated-icon2"><span></span><span></span><span></span><span></span></div>
+		  			</button>
+
+		  				<!-- Collapsible content -->
+		  				<div class="collapse navbar-collapse" id="navbarSupportedContent23">
+
+		    				<!-- Links -->
+		    				<ul class="navbar-nav mr-auto">
+			      				<li class="nav-item">
+			        				<a class="nav-link" href="{{ url_for('userAccount') }}">Account</a>
+			      				</li>
+			      				<li class="nav-item">
+			        				<a class="nav-link" href="{{ url_for('userPreferences') }}">Preferences</a>
+			      				</li>
+			      				<li class="nav-item">
+			        				<a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+			      				</li>
+		    				</ul>
+		    			<!-- Links -->
+
+		  				</div>
+		  			<!-- Collapsible content -->
+
+					</nav>
+				</div>		
+
+					<!--Search bar-->
+						<div class="input-group md-form form-sm form-2 pl-0 user-search">
+							<input class="form-control my-0 py-1 red-border search-body" type="text" placeholder="SEARCH" aria-label="Search">
+								<div class="input-group-append">
+									<span class="input-group-text red lighten-3" id="basic-text1"><i class="fa fa-search" aria-hidden="true"></i></span>
+							</div>
+						</div><!-- end of searchbar-->
+			</div> <!--end of sidebar-user-search div-->
+
+			<!-- Second row containing matches or favorites selector -->
+			<div class ="navbar-brand container-fluid sidebar-matches-favs">
+				<div class="nav-links"><a class="active-link matches-link" id="user-nav-btn" href="#">MATCHES</a>
+					<span class="nav-tab"></span>
+					<a class="favorites-link" id="user-nav-btn2" href="#">FAVORITES</a>
+				</div>
+			</div><!--end of second nav-->
+
+       		<!--MATCHES-->
+       		<!-- Third row containing the list of either matches or favs -->
+			<div class="sidebar-user-animal-list-container container-fluid active-div" id="matches-div">
+
+				<!-- Container for current animal listings -->
+				<div class="user-list-of-animals-container container-fluid">
+
+					<!-- List inside of the floating container -->
+					<div class="container-fluid">
+						<ul class="user-list-of-animals">
+							{% for animal in matches %}
+								<!-- Each displayed animal lives inside a container -->
+								<a href="{{url_for('userInterface', animalId=animal.animalId)}}">
+								<div class="user-individual-animal container-fluid">
+									
+									<!-- Image link and styling for circle image -->
+									<img class="user-animal-image" src="/static/img/{{animal.image_file}}">
+
+									<!-- Availability Indicator -->
+									{% if animal.status_id == 1 %}
+										<a class="btn disabled user-animal-status-btn" role="button">AVAILABLE</a>
+									{% elif animal.status_id == 2 %}
+										<a class="btn disabled user-animal-status-btn" role="button">UNAVAILABLE</a>
+									{% elif animal.status_id == 3 %}
+										<a class="btn disabled user-animal-status-btn" role="button">PENDING</a>
+									{% else %}
+										<a class="btn disabled user-animal-status-btn" role="button">ADOPTED</a>
+									{% endif %}
+									
+									<!-- Animal Name, Breed, and Age -->
+									{% for breed in breedTypes %}
+										{% if animal.breedId == breed.breedId %}
+											<li>{{animal.name}} - {{breed.name}}</li>
+										{% endif %}
+									{% endfor %}	
+								</div>
+								</a>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+		    </div> <!--end of matches div-->
+
+		    <!--FAVORITES-->
+		    <!-- Third row containing the list of either matches or favs -->
+			<div class="sidebar-user-animal-list-container container-fluid" id="favorites-div">
+
+				<!-- Container for current animal listings -->
+				<div class="user-list-of-animals-container container-fluid">
+					
+					<!-- List inside of the floating container -->
+					<div class="container-fluid">
+						<ul class="user-list-of-animals">
+							{% for animal in favorites %}
+								<!-- Each displayed animal lives inside a container -->
+								<a href="{{url_for('userInterface', animalId=animal.animalId)}}">
+								<div class="user-individual-animal container-fluid">
+									<!-- Image link and styling for circle image -->
+									<img class="user-animal-image" src="/static/img/{{animal.image_file}}">
+
+									<!-- Availability Indicator -->
+									{% if animal.status_id == 1 %}
+										<a class="btn disabled user-animal-status-btn" role="button">AVAILABLE</a>
+									{% elif animal.status_id == 2 %}
+										<a class="btn disabled user-animal-status-btn" role="button">UNAVAILABLE</a>
+									{% elif animal.status_id == 3 %}
+										<a class="btn disabled user-animal-status-btn" role="button">PENDING</a>
+									{% else %}
+										<a class="btn disabled user-animal-status-btn" role="button">ADOPTED</a>
+									{% endif %}
+
+									<!-- Animal Name, Breed, and Age -->
+									{% for breed in breedTypes %}
+										{% if animal.breedId == breed.breedId %}
+											<li>{{animal.name}} - {{breed.name}}</li>
+										{% endif %}
+									{% endfor %}	
+								</div>
+								</a>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+		    </div><!--end of favorites div-->
+		</nav>
+
+		<!-- Container for selected animal information -->
+		<div class="right-nav-user container-fluid">
+
+			<div class="user-animal-information-container container-fluid">
+
+				<div class ="animal-header-name container-fluid">
+					<h1>{{ selectedAnimal.name }}</h1>
+				</div>
+
+				<!-- Animal Image Container -->
+				<div class="animal-information-image container-fluid">
+					<img src="/static/img/{{selectedAnimal.image_file}}">
+				</div>
+
+				<!-- Animal Location and Availability -->
+				<div class="animal-location-status container-fluid">
+					<h1>{{ selectedAnimalShelter.name }}</h1>
+					<a class="btn disabled user-animal-status-info-btn" role="button">{{selectedAnimalStatus.statusType}}</a>
+				</div>
+
+				<!-- Container for Animal Description and Matching Dispositions -->
+				<div class="animal-description-container container-fluid">
+					<p>{{ selectedAnimal.description }}</p>
+
+					<!-- List for matching dispositions -->
+					<div class="matching-animal-dispositions container-fluid">
+						<ul class="matching-disposition-list">
+							{% for dispo in selectedAnimalDispoList %}
+								<li>{{dispo.name}}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+
+				<!-- Parent container for the like/dislike button -->
+				<div class="like-dislike-container container-fluid">
+
+					<!-- Container for thumbs up icon -->
+					<div class="like-container container-fluid">
+						<a class="button" href="{{ url_for('addFavorite', animalId=selectedAnimal.animalId) }}"><img src="{{ url_for('static', filename='img/BlueThumbUp.png') }}"></a>
+					</div>
+
+					<!-- Container for thumbs down icon -->
+					<div class="dislike-container container-fluid">
+						<a class="button" href="{{ url_for('addDislike', animalId=selectedAnimal.animalId) }}"><img src="{{ url_for('static', filename='img/RedThumbDown.png') }}" href='#'></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+		
+		//Hamburger Menu Functionality
+		$(document).ready(function ()
+		{
+  			$('.first-button').on('click', function ()
+  			{
+    			$('.animated-icon1').toggleClass('open');
+  			});
+  		
+  			$('.second-button').on('click', function ()
+  			{
+    			$('.animated-icon2').toggleClass('open');
+  			});
+
+  			$('.third-button').on('click', function ()
+  			{
+    			$('.animated-icon3').toggleClass('open');
+  			});
+		});
+
+		//ensures that the MATCHES one is always highlighted first
+		$('#user-nav-btn, #user-nav-btn2').click(function(){
+			$('#user-nav-btn').removeClass("active-link");
+		});
+
+		//control the MATCHES and FAVORITES links so that only the selected one is underlined
+		$( "#user-nav-btn, #user-nav-btn2" ).on('click', function()
+		{
+			$( this ).toggleClass('user-select-nav').siblings().removeClass('user-select-nav');
+		});
+
+		//show/hide divs for MATCHES & FAVES
+		/*favorites inherently hidden; on clicking either link, the divs are toggled*/
+		$('#favorites-div').hide();
+
+		$('.favorites-link, .matches-link').on('click', function() 
+  		{
+    		$('#favorites-div, #matches-div').toggle()
+  		});
+
+
+	</script>
+</body>
+{% endblock content %}
