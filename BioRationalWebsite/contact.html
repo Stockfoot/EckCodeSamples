@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>BioRational Vector Control - International Mosquito Abatement Contact </title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+
+<!-- Navigation Bar-->
+<nav class = "navbar navbar-expand-md navbar-light bg-light sticky-top">
+	
+	<!--Takes up 100% of the screen-->
+	<div class = "container-fluid">
+		
+		<!--Logo-->
+		<a class = "navbar-brand" href = "index.html"><img src = "img/logo.png" alt = "BioRational Vector Control LLC international mosquito logo"></a>
+		
+		<!--Navbar collapses to a button for mobile or small screens-->
+		<button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "#navbarResponsive">
+			<span class ="navbar-toggler-icon"></span>
+		</button>
+		
+		<!--Navbar links to other pages-->
+		<div class = "collapse navbar-collapse" id = "navbarResponsive">
+			
+			<!--Unordered list used for navbar titles and links-->
+			<ul class = "navbar-nav ml-auto">
+				<li class = "nav-item">
+					<a class = "nav-link" href="index.html">HOME</a>
+				</li>
+				<li class = "nav-item">
+					<a class = "nav-link" href="philosophy.html">PHILOSOPHY</a>
+				</li>
+				<li class = "nav-item">
+					<a class = "nav-link" href="services.html">SERVICES</a>
+				</li>
+				<li class = "nav-item">
+					<a class = "nav-link" href="products.html">PRODUCTS</a>
+				</li>
+				<li class = "nav-item">
+					<a class = "nav-link active" href="contact.html">CONTACT</a>
+				</li>
+			</ul>
+		</div>
+
+	</div> 
+</nav>
+
+
+
+<!--Our Team-->
+<div class = "container-fluid padding">
+	<div class = "row welcomeSection text-center">
+		<div class = "col-12">
+			<h1 class = "display-3">Our Team</h1>
+		</div>
+		<hr>
+	</div>
+</div>
+
+
+
+<!--Team Member Cards-->
+<div class = "container-fluid padding">
+	<div class = "row padding">
+		
+		<!--Team Member 1 Dan Ariaz-->
+		<div class = "col-md-4">
+			<div class = "card">
+				<img class = "card-img-top" src = "img/DanAriaz.jpg" alt = "BioRational Vector Control staff Dan Ariaz">
+				<div class = "card-body">
+					<h4 class = "card-title">Dan Ariaz</h4>
+					<p class = "card-text">President and Owner</p>
+				</div>
+			</div>
+		</div>
+
+		<!--Team Member 2 Scott Monsen-->
+		<div class = "col-md-4">
+			<div class = "card">
+				<img class = "card-img-top" src = "img/ScottMonsen.jpg" alt = "BioRational Vector Control staff Scott Monsen">
+				<div class = "card-body">
+					<h4 class = "card-title">Scott Monsen</h4>
+					<p class = "card-text">Entomologist, Director Caribbean Region</p>
+				</div>
+			</div>
+		</div>
+
+		<!--Team Member 3 Ace Ariaz-->
+		<div class = "col-md-4">
+			<div class = "card">
+				<img class = "card-img-top" src = "img/AceAriaz.jpg" alt = "BioRational Vector Control staff Ace Ariaz">
+				<div class = "card-body">
+					<h4 class = "card-title">Ace Ariaz</h4>
+					<p class = "card-text">Equipment Specialist</p>
+				</div>
+			</div>
+		</div>
+
+		<br/>
+
+		<!--Team Member 4 Russell Eck-->
+		<div class = "col-md-4">
+			<div class = "card">
+				<img class = "card-img-top" src = "img/RussellEck.jpg" alt = "BioRational Vector Control staff Russell Eck">
+				<div class = "card-body">
+					<h4 class = "card-title">Russell Eck</h4>
+					<p class = "card-text">Biologist/Computer Scientist</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+<!--Contact Form-->
+<div class = "container-fluid form-group contactForm">
+<form id = "bioForm" action = "send_mail.php" 
+	name = "contactBioRational" method = "post" role="form" class="form-horizontal" >
+    <fieldset>
+        <legend>Contact BioRational Vector Control, LLC</legend>
+        <hr>
+            
+        <label>Name*
+        	<br/>
+            <input type = "text" class = "submissionField" name = "name" size = "20" maxlength = "50" id = "userName" placeholder = "Required" required>
+       	</label>
+      	<br />
+        <label>Company
+        	<br/>
+            <input type = "text"  class = "submissionField" name = "company" size = "20" maxlength = "50">
+       	</label>
+      	<br />                    
+        <label>Email*
+        	<br/>
+            <input type = "text"  class = "submissionField" name = "email" size = "20" maxlength = "50" placeholder = "Required" required>
+       	</label>
+      	<br />
+      	<label>Phone Number
+        	<br/>
+            <input type = "text"  class = "submissionField" name = "phoneNumber" size = "20" maxlength = "25">
+       	</label>
+      	<br />
+      	<label id = "dropDown">Reason For Contacting BioRational Vector Control, LLC*
+        	<br/>
+            <select name = "reason" required>
+            	<option value = "" id = "pCOption">Please choose an option</option>
+            	<option value = "Consultation">Consultation</option>
+            	<option value = "Product/Equipment Inquiry">Product/Equipment Inquiry</option>
+            	<option value = "On-Site Evaluation">On-Site Evaluation</option>
+            	<option value = "General Question">General Question</option>
+            </select>
+       	</label>
+		<br/>
+       	<label>Message*
+       		<br/>
+       		<textarea class = "form-control submissionField" rows = "3" name = "message" id = "message" placeholder = "How can we help you?" required></textarea>
+       	</label>
+      	<br />
+
+        <input type = "submit" value = "Submit" />
+            
+    </fieldset>
+</form>
+</div>
+
+<div class = "container-fluid text-center" id = "nameDisplay">
+	<p id = "messaging"></p>
+	</div>
+
+
+
+<!--Fixed background-->
+<hr>
+<figure>
+	<div class = "fixed-wrap">
+		<div id = "fixed4">
+		</div>
+	</div>
+</figure>
+
+
+
+<!--Footer-->
+<footer>
+	<div class = "container-fluid padding">
+		<div class = "row text-center">
+			
+			<!--International Foot Section-->
+			<div class = "col-md-4">
+				<hr class = "footerLines">
+				<h5>INTERNATIONAL HEADQUARTERS</h5>
+				<hr class = "footerLines">
+				<p>(775)-972-4782 / (775)-8432647</p>
+				<p>dariaz@aol.com / scottmonsen@aol.com</p>
+				<p>7575 Tamra Drive</p>
+				<p>Reno, NV 89506</p>
+			</div>
+
+			<!--Caribbean Footer Section-->
+			<div class = "col-md-4">
+				<hr class = "footerLines">
+				<h5>EASTERN CARIBBEAN DISTRIBUTER</h5>
+				<hr class = "footerLines">
+				<p>Vic Buxton</p>
+				<p>VictorVector Limited</p>
+				<p>(246)-256-4695</p>
+				<p>victorvectorlimited@hotmail.com</p>
+				<p>St. James, Barbados BB24014</p>
+				
+				<a href = "https://www.facebook.com/VictorVector.Limited.Barbados/">
+					<i class="fab fa-facebook fa-2x" id = "icons"></i>
+				</a>
+				
+				<a href = "https://www.linkedin.com/in/vic-buxton-victorvector-limited/">
+					<i class = "fab fa-linkedin fa-2x" id = "icons"></i>
+				</a>
+				
+				<a href = "tel:12462564695">
+					<i class="fab fa-whatsapp-square fa-2x" id = "icons"></i>
+				</a>
+			</div>
+
+			<!--Caribbean Footer Section-->
+			<div class = "col-md-4">
+				<hr class = "footerLines">
+				<h5>DOWNLOADS</h5>
+				<hr class = "footerLines">
+				<div class = "row">
+					
+					<div class = "col-sm">
+						<a id = "dHover3" href = "docs/BioRational Catalog.pdf";>
+						<img src="img/d3.png" alt = "BioRational Vector Control product catalog">
+						<br/>
+						<br/>
+						<button class="btn"><i class="fa fa-download"></i> Product Catalog</button></a>
+					</div>
+
+					<div class = "col-sm">
+						<a id = "dHover1" href = "docs/BioRational Informational Brochure.pdf";>
+						<img src="img/d2.png" alt = "BioRational Vector Control Informational Brochure">
+						<br/>
+						<br/>
+						<button class="btn"><i class="fa fa-download"></i> Info Brochure</button></a>
+					</div>
+
+					<div class = "col-sm">
+						<a id = "dHover2" href = "docs/BioRational Cannabis.pdf";>
+						<img src="img/d1.png" alt = "BioRational Vector Control Cannabis Brochure">
+						<br/>
+						<br/>
+						<button class="btn"><i class="fa fa-download"></i> Bullet Fogger</button></a>
+					</div>
+
+					
+					
+
+				</div>
+				
+				
+			</div>
+
+			<!--Company Name Bottom of Footer-->
+			<div class = "col-12">
+				<hr class = "footerLineBottom">
+				<h5>BioRational Vector Control, LLC</h5>
+				<h6 id = "displayTheDate"></h6>
+			</div>
+
+		</div>
+	</div>
+</footer>
+
+
+
+<!--Scripts-->
+<script src="biorational.js"></script>
+<script src="effects.js"></script>
+
+</body>
+
+</html>

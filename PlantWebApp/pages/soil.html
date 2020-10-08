@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>The Plant Database (Group 13)</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+
+<!--Navigation Bar-->
+<nav class = "navbar navbar-expand-md navbar-light bg-light sticky-top">
+	
+	<!--Takes up 100% of the screen-->
+	<div class = "container-fluid">
+		
+		<!--Logo-->
+		<a class = "navbar-brand" href = "index.html"><img src = "img/logo.png"></a>
+		
+		<!--Navbar collapses to a button for mobile or small screens-->
+		<button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "#navbarResponsive">
+			<span class ="navbar-toggler-icon"></span>
+		</button>
+		
+		<!--Navbar links to other pages-->
+		<div class = "collapse navbar-collapse" id = "navbarResponsive">
+			
+			<!--Unordered list used for navbar titles and links-->
+			<ul class = "navbar-nav ml-auto">
+				<li class = "nav-item">
+					<a class = "nav-link" href="index.html">PLANTS</a>
+				</li>
+				<li class = "nav-item">
+					<a class = "nav-link" href="climate.html">CLIMATE</a>
+				</li>
+				<li class = "nav-item">
+					<a class = "nav-link" href="sunlight.html">SUNLIGHT</a>
+				</li>
+				<li class = "nav-item active">
+					<a class = "nav-link" href="soil.html">SOIL</a>
+				</li>
+				<li class = "nav-item">
+					<a class = "nav-link" href="wateringcycle.html">WATERING CYCLE</a>
+				</li>
+				<li class = "nav-item">
+					<a class = "nav-link" href="intermediatetables.html">INTERMEDIATE TABLES</a>
+				</li>
+			</ul>
+		</div>
+
+	</div> 
+</nav>
+
+
+<!--Welcome Section-->
+<br/>
+<div class = "container-fluid padding">
+	<div class = "row welcomeSection text-center">
+		<div class = "col-12">
+			<h1 class = "display-4">Soil</h1>
+		</div>
+		<hr>
+	</div>
+</div>
+
+
+<!--Add New Soil Form-->
+<div class = "container-fluid form-group contactForm">
+<form id = "soilForm" action = "http://web.engr.oregonstate.edu/~zhangluy/tools/class-content/form_tests/check_request.php" 
+	name = "newSoil" method = "post" role="form" class="form-horizontal" >
+    <fieldset>
+        <legend>Enter a new soil.</legend>
+        <hr>
+            
+        <label>Soil Type
+        	<br/>
+            <input type = "text" class = "submissionField" name = "soilType" size = "20" maxlength = "50" placeholder = "Required String" required>
+       	</label>
+
+		<label id = "soilph" >Soil pH
+        	<br/>
+            <select name = "soilph" required>
+            	<option value = "1">1</option>
+            	<option value = "2">2</option>
+            	<option value = "3">3</option>
+            	<option value = "4">4</option>
+            	<option value = "5">5</option>
+            	<option value = "6">6</option>
+            	<option value = "7">7</option>
+            	<option value = "8">8</option>
+            	<option value = "9">9</option>
+            	<option value = "10">10</option>
+            	<option value = "11">11</option>
+            	<option value = "12">12</option>
+            	<option value = "13">13</option>
+            	<option value = "14">14</option>
+            </select>
+       	</label>
+
+       	<label id = "fertilzer">Fertilizer
+        	<br/>
+            <select name = "fertilizer" required>
+            	<option value = "False">False</option>
+            	<option value = "True">True</option>
+            </select>
+       	</label>      	
+
+        <input type = "submit" value = "Submit" />
+            
+    </fieldset>
+</form>
+</div>
+<br/>
+<hr>
+
+<!--Table Section-->
+<br/>
+<div class = "container-fluid padding">
+	<div class = "row welcomeSection text-center">
+		<div class = "col-12">
+			<h1 class = "display-4">Display the soil table.</h1>
+		<hr>
+
+		<table style = "width:100%">
+			<tr>
+				<th>ID</th>
+				<th>Soil Type</th>
+				<th>Soil pH</th>
+				<th>Fertilzer</th>
+				<th>Update</th>
+				<th>Delete</th>
+			</tr>
+		</table>
+
+	</div>
+</div>
+
+
+</body>
+</html>

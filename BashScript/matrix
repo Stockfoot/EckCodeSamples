@@ -1,0 +1,709 @@
+#!/bin/bash
+#********************************************************************************
+#PROGRAM NAME:	Matrix
+#AUTHOR: 		Russell Eck
+#DATE:			9/17/2019
+#DESCRIPTION:	This script takes matrixes as input either being piped in or
+#				as a command line argument. It can perform 5 different functions
+#				on the matrix or matrices provided. Dimensions returns the 
+#				dimensions of the matrix in rows and columns. Transpose converts
+#				the matrix rows in columns. Mean returns the mean for each column
+#				of numbers. Add will add elements together in two matrices. And
+#				multiply will multiply two matrices together. The script also
+#				contains error checking for correct number and input of arguments.
+#*********************************************************************************
+
+
+
+
+#*********************************************************************************
+#										dims()
+#
+#	Description:	This function calculates how many rows and columns a matrix has
+#					and outputs it to the user in the format of "#Rows #Columns".
+#					It does calculation on only a single matrix that it receives
+#					via command line argument or being piped in through stdin.
+#
+#*********************************************************************************
+dims()
+{
+	numberOfRows=0
+	numberOfCols=0
+	tempFinalFile="tempFinalFile$$"
+
+	#Read the input line by line and increment number of rows for each line
+	while read userInput
+	do
+		((numberOfRows++))
+	done <$datafilepath
+
+	#Read the first line of the input and place into variable to count
+	read countColumns <$datafilepath
+	
+	#Loop through the single line and count the number of integers which
+	#is the number of columns in the matrix
+	for i in $countColumns
+	do
+		((numberOfCols++))
+	done
+
+	#Place the number of rows and columns in a temp file then output to user
+	echo -n $numberOfRows >$tempFinalFile
+	echo -n " " >>$tempFinalFile
+	echo -n $numberOfCols >>$tempFinalFile
+	echo >>$tempFinalFile
+
+	cat < $tempFinalFile
+
+	#Remove temp file before ending function
+	rm -f $tempFinalFile
+
+}
+
+
+#*********************************************************************************
+#										transpose()
+#
+#	Description:	This function takes a single matrix from command line or being
+#					piped in through stdin and transposes it. It takes an M x N
+#					matrix and converts it to an N x M matrix. It then display the
+#					converted matrix to the user before ending.
+#
+#*********************************************************************************
+transpose()
+{
+	tempRow="tempRowFile$$"
+	tempCol="tempColFile$$"
+	tempSpaces="tempSpaces$$"
+	tempFinal="tempFinal$$"
+	numberOfCols=0
+	numberOfRows=0
+	
+	#Read first line of file to count columns
+	read firstLine <$datafilepath
+
+	#Count how many numbers are in the first line and store in a variable
+	#that relfects how many columns we have to loop through
+	for i in $firstLine
+	do
+		((numberOfCols++))
+	done
+
+	#Reset i=0 and increment numberOfCols by one so we loop all columns
+	i=1
+	((numberOfCols++))
+
+	#Loop and cut each column. Then convert each column to a row and append
+	#to a file
+	while [ $i -ne $numberOfCols ]
+	do
+		
+		#Cut the current column and put in a temp file
+		cut -f $i $datafilepath >$tempCol
+
+		#Pipe the output of the file and transform new lines to tabs
+		#Then output to a file as a row
+		cat $tempCol | tr '\n' '\t' >>$tempRow
+
+		#Add new line character to the end of the new row
+		echo >> $tempRow
+
+		((i++))
+	done
+
+	#All lines end with tabs which is incorrect formatting.
+	#Read through every line, echo turns tabs into spaces.
+	while read removeTab
+	do
+		echo $removeTab >>$tempSpaces
+	done <$tempRow
+	
+	#Now transform all spaces back to tabs for final format
+	cat $tempSpaces | tr " " '\t' >>$tempFinal
+
+	#Output the converted and formatted matrix to the user
+	cat	<$tempFinal
+
+	#Delete both temp files that were used for the function
+	rm -f $tempCol
+	rm -f $tempRow
+	rm -f $tempSpaces
+	rm -f $tempFinal
+}
+
+
+#*********************************************************************************
+#										mean()
+#
+#	Description:	This function calculates the mean of a single matrix passed
+#					via command line or piped in via stdin. It calculates the mean
+#					for every column of the matrix and then outputs the mean in a
+#					1 x N row to the user.
+#
+#*********************************************************************************
+mean()
+{
+	#Temporary files for calculations and display
+	tempAddFile="tempAddFile$$"
+	tempOutputFile="tempOutputFile$$"
+	tempSpacesFile="tempSpacesFile$$"
+	tempFinalFile="tempFinalFile$$"
+
+	#Variables for mean function
+	divisor=0
+	sum=0
+	mean=0
+	numberOfCols=0
+
+	#Read one line of the matrix then count the number of elements
+	#in that line. This will give us the number of columns in the matrix
+	read rowOfMatrix <$datafilepath
+
+	for i in $rowOfMatrix
+	do
+		((numberOfCols++))
+	done
+
+	#Prepare variables for upcoming loop
+	i=1
+	((numberOfCols++))
+
+	#Loop through every column in the matrix. Get the sum of the column
+	#and divide it my the number of elements in the column.
+	while [ $i -ne $numberOfCols ]
+	do
+
+		#Reset sum, mean, and divisor to prepare for data
+		sum=0
+		mean=0
+		divisor=0
+	
+		#Cut the current columna and dump to a file
+		cut -f $i $datafilepath >$tempAddFile
+	
+		#Read the temp file that contains the extracted column
+		#Create a rolling sum of all the numbers in the column
+		while read myLine
+		do
+			((sum = sum + myLine))
+	
+			#Increment divisor or number of elements in column
+			((divisor++))
+
+		done <$tempAddFile
+	
+		#Calculate the mean of the current column
+		mean=$((  (sum + (divisor/2)*( (sum>0)*2-1 )) / divisor  ))
+	
+		#Print the mean to a temporary output file and a tab character
+		printf "%s$mean\\t" >> $tempOutputFile
+
+		((i++))
+
+	done
+
+	#Add a newline to the output line for readability
+	echo >> $tempOutputFile
+
+	#Line ends with a tab which is incorrect format. Read the line into a variable
+	#and then echo to a new file removing tabs and trailing tab
+	while read removeTabs
+	do
+		echo $removeTabs >>$tempSpacesFile
+	done <$tempOutputFile
+
+	#Convert all spaces back to tabs with a correctely formatted mean display
+	cat $tempSpacesFile | tr " " '\t' >$tempFinalFile
+
+	#Display the formatted output to the user
+	cat <$tempFinalFile
+
+	#Remove temp files used for calculations
+	rm -f $tempAddFile
+	rm -f $tempOutputFile
+	rm -f $tempSpacesFile
+	rm -f $tempFinalFile
+
+}
+
+
+
+#*********************************************************************************
+#										add()
+#
+#	Description:	This function takes 2 matrixes pass via command line. The matrices
+#					must have matching dimensions otherwise it errors to stderr.
+#					It adds elements in place from the two matrices and produces
+#					a single matrix with the sum of the 2 matrices.
+#
+#*********************************************************************************
+add()
+{
+
+	tempOutputFile="tempOutputFile$$"
+	tempAddingFile="tempAddingFile$$"
+	tempFinalFile="tempFinalFile$$"
+	tempSpaces="tempSpaces$$"
+	tempOutput="tempOutput$$"
+
+	matrixOneNumRows=0
+	matrixTwoNumRows=0
+	matrixOneNumCols=0
+	matrixTwoNumCols=0
+
+
+	#We must first count the rows and columns of each matrix being added
+	#If the dimensions are not equal we issue an error message to stderr and exit
+	
+	#Count the number of rows in matrix one
+	while read countRowsOne
+	do
+		((matrixOneNumRows++))
+	done <$datafilepath
+
+	#Count the number of rows in matrix two
+	while read countRowsTwo
+	do
+		((matrixTwoNumRows++))
+	done <$datafilepath2
+
+	#Count the number of columns in matrix one
+	read countColumnsOne <$datafilepath
+	for i in $countColumnsOne
+	do
+		((matrixOneNumCols++))
+	done
+
+	#Count the number of columns in matrix two
+	read countColumnsTwo <$datafilepath2
+	for j in $countColumnsTwo
+	do
+		((matrixTwoNumCols++))
+	done
+
+	
+	#Now we will check if the matrices both have the same dimensions
+	#If they dont issue error to stderr and exit
+	if [ "$matrixOneNumRows" -ne "$matrixTwoNumRows" ]
+	then
+		echo "Error: The matrices do not have the same dimensions" 1>&2
+		exit 1
+	fi
+	
+	if [ "$matrixOneNumCols" -ne "$matrixTwoNumCols" ]
+	then
+		echo "Error: The matrices do not have the same dimensions" 1>&2
+		exit 1
+	fi
+
+	#We will use this variable to loop through columns to add
+	#Increment so while loop does last column
+	((matrixOneNumCols++))
+
+	#Read both matrixes line by line and add the elements together.
+	#<&4 reads the file at descriptor 4. Descriptor 0, 1, and 2
+	#are reserved for stdin, stdout, and stderr.
+	while read matrix1 && read matrix2 <&4
+	do
+
+		#Write the current matching line from each matrix to a file
+		printf "%s$matrix1\n" >$tempOutputFile
+		printf "%s$matrix2\n" >>$tempOutputFile
+		
+		#Reset counter for upcoming loop
+		i=1
+
+		#We now loop through the columns and cut each column
+		#We then read the columns and create a sum and then
+		#output to a final file
+		while [ "$i" -ne "$matrixOneNumCols" ]
+		do
+			
+			#Cut the current column and put in a file to add and sum together
+			#The column contains the two numbers from matching positions in two matrices
+			cut -f $i $tempOutputFile >$tempAddingFile
+			((i++))
+
+			#Reset sum before adding loop
+			sum=0
+
+			#Read and add the two numbers together
+			while read currentNumber 
+			do
+				sum=$((sum + currentNumber))
+			done <$tempAddingFile
+			
+			#Output the sum to the final file
+			echo -ne "$sum\t" >>$tempFinalFile
+
+		done
+
+		#Create new line on final file for next row
+		echo >>$tempFinalFile
+
+
+
+	done <$datafilepath 4<$datafilepath2
+
+	#All lines end with tabs which is incorrect formatting.
+	#Read through every line and echo to a new file.
+	#Echo turns tabs to spaces
+	while read removeTab
+	do
+		echo $removeTab >>$tempSpaces
+	done <$tempFinalFile
+	
+	#Now transform all spaces back to tabs for finall correct format
+	cat $tempSpaces | tr " " '\t' >>$tempOutput
+
+	#Finally output the desired output to the user
+	cat $tempOutput
+
+	rm -f $tempOutputFile
+	rm -f $tempAddingFile
+	rm -f $tempFinalFile
+	rm -f $tempSpaces
+	rm -f $tempOutput
+
+}
+
+
+
+#*********************************************************************************
+#										multiply()
+#
+#	Description:	This function multiplies two matrixes together.
+#					MxN * NxP = MxP final matrix. Matrix 1 elements in rows must
+#					be equal to Matrix 2 elements in columns. It must receive
+#					both files from the commmand line and must be two files.
+#
+#*********************************************************************************
+multiply()
+{
+
+	matrixOneElementFile="m1Out"
+	matrixTwoElementFile="m2Out"
+	tempMultiplyFile="tempMultiplyFile"
+	tempConvertFile="tempConvertFile"
+	tempOutputFile="tempOutputFile"
+	tempDoingMultiply="tempDoingMultiply"
+	tempFinalFile="tempFinalFile"
+	tempOutputToUser="tempOutputToUser"
+
+	matrixOneElementCount=0
+	matrixTwoElementCount=0
+	matrixOneNumRows=0
+	matrixTwoNumRows=0
+	matrixOneNumCols=0
+	matrixTwoNumCols=0
+
+
+	#We will first count the number of elements in a row of matrix 1
+	#and the number of elements in the first column of matrix 2.
+	#These must be equal to perform matrix multiplication
+
+	#Read first row and count elements from matrix 1
+	read matrixOneFirstRow <$datafilepath
+	for i in $matrixOneFirstRow
+	do
+		((matrixOneElementCount++))
+	done
+
+	#Cut first column from matrix 2 and count elements
+	cut -f 1 $datafilepath2 >$matrixTwoElementFile
+	while read countElements
+	do
+		((matrixTwoElementCount++))
+	done <$datafilepath2
+
+	#Now we will check if the matrices have the same number of elements
+	#If they dont issue error to stderr and exit
+	if [ "$matrixOneElementCount" -ne "$matrixTwoElementCount" ]
+	then
+		echo "Error: The matrices cannot be multiplied" 1>&2
+		exit 1
+	fi
+		
+	#Count the number of rows in matrix one
+	while read countRowsOne
+	do
+		((matrixOneNumRows++))
+	done <$datafilepath
+
+	#Count the number of rows in matrix two
+	while read countRowsTwo
+	do
+		((matrixTwoNumRows++))
+	done <$datafilepath2
+
+	#Count the number of columns in matrix one
+	read countColumnsOne <$datafilepath
+	for i in $countColumnsOne
+	do
+		((matrixOneNumCols++))
+	done
+
+	#Count the number of columns in matrix two
+	read countColumnsTwo <$datafilepath2
+	for j in $countColumnsTwo
+	do
+		((matrixTwoNumCols++))
+	done
+
+	#Loop through every row of the first matrix
+	while read rowInMatrixOne
+	do
+		
+		#Set the current column to one for matrix two
+		#In the next loop we will go through every column of matrix two
+		currentColMatrixTwo=1
+
+		#Loop through every column of matrix two		
+		while [ "$currentColMatrixTwo" -le "$matrixTwoNumCols" ]
+		do
+			
+			#Place the current row of matrix one in the tempMultiplyFile
+			printf "%s$rowInMatrixOne\n" >$tempMultiplyFile	
+
+			#Cut the current column from matrix two
+			cut -f $currentColMatrixTwo $datafilepath2 >$tempConvertFile
+
+			#Now we convert the cut column back to row and append to the tempMultiplyFile
+			cat $tempConvertFile | tr '\n' '\t' >>$tempMultiplyFile
+		
+			#Set count and sum for upcoming loop to iterate through and perform multiplication
+			currentColMultiply=1
+			sum=0
+
+			#We will now iterate through the every column of the combined date of a row from
+			#matrix one and the column from matrix two. We will multiply the number in the column
+			#then add to a rolling sum.
+			while [ "$currentColMultiply" -le "$matrixOneNumCols" ]
+			do
+			
+				#Cut the current column of two numbers to multiply and output to another file
+				cut -f $currentColMultiply $tempMultiplyFile >$tempDoingMultiply
+
+				#Since we are looping while multiplying we need the first number to be
+				#multiplied by 1 to maintain its value before being multiplied by the second number
+				multiplier=1
+
+				#Now read through the file that has the 2 numbers and multiply them together
+				while read finalMultiply
+				do
+					multiplier=$((multiplier * finalMultiply))
+				done <$tempDoingMultiply
+
+				#Add the two multiplied numbers to the sum for current row and column
+				sum=$((sum + multiplier))
+
+				#Increment the current column
+				((currentColMultiply++))
+
+			done
+
+			#Place the sum in the output file
+			echo -n "$sum " >>$tempFinalFile
+
+			#Increment current column in matrix two
+			((currentColMatrixTwo++))
+
+		done
+
+		#Remove the trailing space of the line
+		truncate -s -1 $tempFinalFile
+
+		#Add a new line to the output file
+		echo >>$tempFinalFile
+
+	done <$datafilepath
+
+	#Convert all the spaces in the file to tabs
+	cat $tempFinalFile | tr	" " '\t' >$tempOutputToUser
+
+	#Now finally display the final output to the user
+	cat $tempOutputToUser
+
+	rm -f $matrixOneElementFile
+	rm -f $matrixTwoElementFile
+	rm -f $tempMultiplyFile
+	rm -f $tempConvertFile
+	rm -f $tempOutputFile
+	rm -f $tempDoingMultiply
+	rm -f $tempFinalFile
+	rm -f $tempOutputToUser
+
+}
+
+
+
+#*********************************************************************************
+#
+#								BEGIN MAIN SCRIPT
+#
+#*********************************************************************************
+
+#This check if an argument was passed via stdin or command line argument
+datafilepath="datafile$$"
+datafilepath2="datafile2$$"
+
+#Error check if add was called and no files passed, issue error and exit
+if [ "$#" = "1" ] && [ "$1" = "add" ]
+then
+	echo "Error: no files passed to add" 1>&2
+	exit 1
+fi
+
+#Error check if multiply was called with no files passed, issue error and exit
+if [ "$#" = "1" ] && [ "$1" = "multiply" ]
+then
+	echo "Error: no files passed to multiply" 1>&2
+	exit 1
+fi
+
+#This checks to make sure that a valid opertation/function was supplied in the command line
+if [ "$1" != "dims" ] && [ "$1" != "transpose" ] && [ "$1" != "mean" ] && 
+   [ "$1" != "add" ] && [ "$1" != "multiply" ]
+then
+	echo "Error: You did not supply a valid function" 1>&2
+	exit 1
+fi
+
+
+#This check determines if the information was piped in or passed via command line
+if [ "$#" = "1" ]
+then	
+	cat >"$datafilepath"
+	fileCreated=1
+elif [ "$#" = "2" ]
+then
+	datafilepath=$2
+	fileCreated=0
+elif [ "$#" = "3" ]
+then
+	datafilepath=$2
+	datafilepath2=$3
+	fileCreated=3
+fi
+
+#Error Handling for dims() with more than 1 argument and file not existing
+if [ "$1" = "dims" ]
+then
+	
+	#If arguments was greater then 1 error to stderr and exit
+	if [ "$#" -gt "2" ]
+	then
+		echo "Error: Dims can only take one argument" 1>&2
+		exit 1
+	fi
+	
+	#If matrix was passed as command line argument, check if file exists
+	if [ "$#" = "2" ]
+	then
+		#If file doesn't exists issue error to stderr and exit
+		if [ ! -r "$2" ]
+		then
+			echo "Error: The file doesn't exist for dims" 1>&2
+			exit 1
+		fi
+		
+		#If file exists but is empty issue error to stderr and exit
+		if [ ! -s "$2" ]
+		then
+			echo "Error: The file is empty" 1>&2
+			exit 1
+		fi
+	fi
+fi
+
+#Error Handling for transpose() with more than 1 argument and file not existing
+if [ "$1" = "transpose" ]
+then
+	
+	#If arguments was greater then 1 error to stderr and exit
+	if [ "$#" -gt "2" ]
+	then
+		echo "Error: Transpose can only take one argument" 1>&2
+		exit 1
+	fi
+	
+	#If matrix was passed as command line argument, check if file exists
+	if [ "$#" = "2" ]
+	then
+		#If file doesn't exists issue error to stderr and exit
+		if [ ! -r "$2" ]
+		then
+			echo "Error: The file doesn't exist for transpose" 1>&2
+			exit 1
+		fi
+
+		#If file exists but is empty issue error to stderr and exit
+		if [ ! -s "$2" ]
+		then
+			echo "Error: The file is empty" 1>&2
+			exit 1
+		fi
+	fi
+fi
+
+#Error Handling for add() for exactly 2 arguments
+if [ "$1" = "add" ]
+then
+	
+	#If the number of file arguments is not 2 issue error to stderr and exit
+	if [ "$#" -ne "3" ]
+	then
+		echo "Error: Add requires 2 files" 1>&2
+		exit 1
+	fi
+
+	#If the number of arguments is 2 but the file doesn't exist or cannot be read
+	#issue error to stderr and exit
+	if [ ! -r "$2" ] || [ ! -r "$3" ]
+	then
+		echo "Error: the file does not exist" 1>&2
+		exit 1
+	fi
+fi
+
+#Error Handling for multiply() for exactly 2 arguments
+if [ "$1" = "multiply" ]
+then
+	
+	#If the number of file arguments is not 2 issue error to stderr and exit
+	if [ "$#" -ne "3" ]
+	then
+		echo "Error: Multiply requires 2 files" 1>&2
+		exit 1
+	fi
+
+	#If the number of arguments is 2 but the file doesn't exist or cannot be read
+	#issue error to stderr and exit
+	if [ ! -r "$2" ] || [ ! -r "$3" ]
+	then
+		echo "Error: the file does not exist" 1>&2
+		exit 1
+	fi
+fi
+
+#Expands the first agrument into a function call for dims, tranpose, mean, add, or multiply
+$1 "${@:2}"
+
+#Check if a datafile was created to hold the matrix that was piped in
+#If true we need to remove it before program ends
+if [ "$fileCreated" = "1" ]
+then
+	rm -f $datafilepath
+fi
+
+
+
+
+
+
+
+
+
+
+
+
